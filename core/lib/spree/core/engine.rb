@@ -2,7 +2,10 @@ module Spree
   module Core
     class Engine < Rails::Engine
       isolate_namespace Spree
+<<<<<<< HEAD
       engine_name 'spree_core'
+=======
+>>>>>>> Namespace all spree_core files under spree/core instead
 
       config.autoload_paths += %W(#{config.root}/lib)
 
@@ -61,11 +64,14 @@ module Spree
         app.config.assets.precompile += ['store/all.*', 'admin/all.*', 'admin/spree_dash.*', 'admin/orders/edit_form.js', 'jqPlot/excanvas.min.js', 'admin/images/new.js']
         app.config.assets.debug = false
       end
+<<<<<<< HEAD
 
       # turn off asset debugging since that kills performance in development mode
       initializer "spree.asset.pipeline" do |app|
         app.config.assets.debug = false
       end
+=======
+>>>>>>> Namespace all spree_core files under spree/core instead
     end
   end
 end
