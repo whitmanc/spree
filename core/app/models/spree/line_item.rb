@@ -84,7 +84,6 @@ class Spree::LineItem < ActiveRecord::Base
     end
 
     # Validation
-
     def stock_availability
       return if sufficient_stock?
       errors.add(:quantity, I18n.t('validation.cannot_be_greater_than_available_stock'))
