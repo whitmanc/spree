@@ -14,6 +14,7 @@ module Spree
         options[:route] ||=  "admin_#{args.first}"
 
         destination_url = options[:url] || spree_core.send("#{options[:route]}_path")
+
         label_with_first_letters_capitalized = t(options[:label], :default => options[:label]).titleize
 
         link = link_to(label_with_first_letters_capitalized, destination_url)
