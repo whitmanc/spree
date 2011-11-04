@@ -58,9 +58,9 @@ class Spree::LineItem < ActiveRecord::Base
         Spree::InventoryUnit.increase(self.order, self.variant, self.quantity)
       elsif old_quantity = self.changed_attributes['quantity']
         if old_quantity < self.quantity
-          InventoryUnit.increase(self.order, self.variant, (self.quantity - old_quantity))
+          Spree::InventoryUnit.increase(self.order, self.variant, (self.quantity - old_quantity))
         elsif old_quantity > self.quantity
-          InventoryUnit.decrease(self.order, self.variant, (old_quantity - self.quantity))
+          Spree::InventoryUnit.decrease(self.order, self.variant, (old_quantity - self.quantity))
         end
       end
     end
@@ -68,7 +68,7 @@ class Spree::LineItem < ActiveRecord::Base
     def remove_inventory
       return true unless self.order.completed?
 
-      InventoryUnit.decrease(self.order, self.variant, self.quantity)
+      Spree::InventoryUnit.decrease(self.order, self.variant, self.quantity)
     end
 
     def update_order
@@ -78,7 +78,7 @@ class Spree::LineItem < ActiveRecord::Base
 
     def ensure_not_shipped
       if order.try(:inventory_units).to_a.any?{|unit| unit.variant_id == variant_id && unit.shipped?}
-        errors.add :base, I18n.t(:cannot_destory_line_item_as_inventory_units_have_shipped)
+        errors.add :base, I18n.t('validation.cannot_destory_line_item_as_inventory_units_have_shipped')
         return false
       end
     end
